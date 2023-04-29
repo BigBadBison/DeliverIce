@@ -8,12 +8,14 @@ public class HexChunk : MonoBehaviour {
     [SerializeField] ChunkMesh chunkMesh;
     [SerializeField] HexChunkCollider chunkCollider;
     HexChunk[] neighbors;
+    FixedJoint2D[] neighborJoints;
 
     public HexCoordinates coordinates;
     public Rigidbody2D rb;
 
     void Awake() {
         neighbors = new HexChunk[6];
+        neighborJoints = new FixedJoint2D[6];
     }
 
     public void Triangulate() {
@@ -23,5 +25,8 @@ public class HexChunk : MonoBehaviour {
     public void SetNeighbor(HexChunk chunk, HexDirection dir) {
         neighbors[(int)dir] = chunk;
         chunkMesh.hasNeighbor[(int)dir] = true;
+        FixedJoint2D joint = gameObject.AddComponent<FixedJoint2D>();
+        joint.connectedBody = chunk.rb;
+        neighborJoints[(int)dir] = joint;
     }
 }

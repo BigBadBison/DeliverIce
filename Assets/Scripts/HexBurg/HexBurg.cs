@@ -53,7 +53,6 @@ public class HexBurg : MonoBehaviour
             var dir = HexMetrics.neighborCoordinates[i];
             HexCoordinates coords = new HexCoordinates(chunk.coordinates.Q + dir.Q, chunk.coordinates.R + dir.R);
             HexChunk neighbor = GetTile(coords);
-            Debug.Log(neighbor);
             if (neighbor != null) {
                 chunk.SetNeighbor(neighbor, (HexDirection)i);
             }
